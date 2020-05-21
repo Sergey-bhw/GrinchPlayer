@@ -16,8 +16,11 @@ app.setAppUserModelId('com.Nik.GrinchPlayer');
 app.disableHardwareAcceleration();
 
 // Set userData to current folder (portable app)
-app.setPath('userData', process.env.PORTABLE_EXECUTABLE_DIR + '/' + app.getName());
-
+if(process.platform == 'win32'){
+    app.setPath('userData', process.env.PORTABLE_EXECUTABLE_DIR + '/' + app.getName());
+}else{
+    app.setPath('userData', __dirname);
+}
 // Prevent variables from being garbage collected
 let mainWindow;
 const bounds = config.get('bounds') || {};
